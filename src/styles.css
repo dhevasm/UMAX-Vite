@@ -1,0 +1,534 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@100;200;300;400;600;700&display=swap');
+
+/* Gaya untuk kontainer tabel */
+.table-container {
+  border-radius: 15px;
+  outline: none;
+}
+
+
+
+.custom-confirm-button-class {
+    background-color: #DC2626 !important;
+  }
+  .custom-ok-button-class {
+    background-color: #198754 !important; 
+  }
+  .custom-error-button-class{
+  background-color: #0EA5E9 !important
+};
+
+
+.lebarcard{
+  width: 88%;
+}
+.no-scroll {
+  overflow: hidden;
+}
+
+/* CSS untuk header "Action" */
+.action-column {
+  text-align: center; /* Mengatur teks menjadi rata tengah */
+}
+
+.header.action-column {
+  /* CSS tambahan untuk header kolom "Action" */
+  text-align: center; /* Mengatur teks header menjadi rata tengah */
+}
+
+
+.action-column {
+  text-align: center; /* Ini akan membuat isi kolom "Action" menjadi rata tengah */
+}
+
+.action-column .header {
+  text-align: center; /* Ini akan membuat header kolom "Action" menjadi rata tengah */
+}
+
+.action-header {
+  text-align: center; /* Ini akan membuat header "Action" menjadi rata tengah */
+}
+
+.action-cell {
+  text-align: center; /* Ini akan membuat sel dalam kolom "Action" menjadi rata tengah */
+}
+
+
+/* CSS untuk animasi popup */
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Latar belakang gelap */
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.popup {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.popup.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.popup-container.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+
+
+
+
+.transition-transform {
+  transition-property: transform, opacity;
+}
+.dot {
+  transform: translateX(0);
+  transition: transform 0.5s;
+}
+
+.dark-mode .dot {
+  transform: translateX(100%);
+}
+.bordernya{
+  border: 2px solid #409DF9 ;
+}
+.border-searc{
+  border: 2px solid #EEF1FF;
+}
+.aside__container-list_information {
+  position: relative;
+  top: -25px;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+}
+.aside__container-list_information > div p {
+  font-size: 12px;
+  /* color: #878c84; */
+  font-weight: 500;
+}
+.lebar-list{
+  width: 327px;
+
+}
+.bayangan{
+  filter: drop-shadow(2px 0px 2px rgba(17, 18, 22, 0.10));
+}
+.pembatas{
+  position: relative;
+  border: 1px solid #7C7C7C;
+  width: 289px;
+  left: -17px;
+}
+/* .status-green {
+  width: 20px;
+  height: 20px;
+  background-color: rgb(55, 236, 55);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+}
+
+.status-green::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: inherit;
+  border-radius: inherit;
+  top: 0;
+  left: 0;
+}
+.status-orange {
+  width: 20px;
+  height: 20px;
+  background-color: rgb(244, 192, 50);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+}
+
+.status-orange::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: inherit;
+  border-radius: inherit;
+  top: 0;
+  left: 0;
+}
+.status-gray {
+  width: 20px;
+  height: 20px;
+  background-color: rgb(99, 99, 99);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+}
+
+.status-gray::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: inherit;
+  border-radius: inherit;
+  top: 0;
+  left: 0;
+} */
+/* .text{
+  width: 100px;
+  overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+} */
+
+/* animasi untuk pop up card */
+/* Transisi masuk */
+.popup-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.popup-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+/* Transisi keluar */
+.popup-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.popup-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 300ms, transform 300ms;
+}
+.header-modal{
+  margin-top: -10px;
+  margin-left: -10px
+}
+.popup-content {
+  background-color: white;
+  border-radius: 8px;
+  left: 80px;
+  color: #838383;
+  box-shadow: 0px 0px 30px 0px rgba(18, 21, 27, 0.20);
+  position: absolute;
+  z-index: 10;
+  line-height: 20px;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  cursor: pointer;
+}
+.atas{
+  position: relative;
+  top: -1.3px;
+}
+.kecil{
+  font-size: 11px;
+  position: relative;
+  top: 3px;
+}
+
+.table-container {
+  white-space: nowrap;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 120%; /* This should match the max-width of the container */
+}
+/*design table 1*/
+.table1 {
+  font-family: sans-serif;
+  color: #232323;
+  border-collapse: collapse;
+}
+
+.table1, th, td {
+  border: 1px solid #999;
+  padding: 8px 20px;
+}
+
+
+/* pagination.css */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+}
+
+.pagination li {
+  margin: 0 5px;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.pagination li.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination li:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination .disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+
+th .header-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+th svg{
+  max-width: 10px;
+}
+th svg.asc{
+  transform: rotate(0deg);
+}
+th svg.desc{
+  transform: rotate(180deg);
+}
+
+.hr{
+  color: #35A9DB;
+}
+
+.pagination-container {
+  text-align: right;
+}
+
+.pagination-list {
+  list-style-type: none;
+  display: flex;
+  justify-content: right;
+  align-items: right;
+  margin: 20px 0;
+  padding: 0;
+}
+
+.pagination-item {
+  margin: 0 5px;
+}
+
+.pagination-link {
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #333;
+}
+
+.pagination-item.active .pagination-link {
+  background-color: #007bff;
+  color: #fff;
+} 
+
+th .header-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+th svg{
+  max-width: 10px;
+}
+th svg.asc{
+  transform: rotate(0deg);
+}
+th svg.desc{
+  transform: rotate(180deg);
+}
+
+ .table1 {
+  font-family: sans-serif;
+  color: #444;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #f2f5f7;
+}
+
+.table1 tr th{
+  background: #35A9DB;
+  color: #fff;
+  font-weight: normal;
+}
+
+.table1, th, td {
+  padding: 8px 20px;
+  text-align: center;
+}
+
+.table1 tr:hover {
+  background-color: #f5f5f5;
+}
+
+.table1 tr:nth-child(even) {
+  background-color: #f2f2f2;
+} 
+
+.modalsd{
+  box-shadow: 0px 0px 20px 0px rgba(18, 21, 27, 0.08);
+}
+
+/* CSS tambahan jika Anda ingin mengatur lebar elemen <select> */
+.select-custom-width {
+  width: 200px; /* Sesuaikan lebar sesuai kebutuhan Anda */
+}
+
+
+
+
+/* responsive table */
+.mediaquery{
+  @media screen and (max-width: 1023px ){
+    display: flex;
+    flex-direction: column;
+
+ }}
+
+
+
+/* TableStyles.css */
+.text-left {
+  text-align: left;
+}
+
+
+
+/* Gaya scroll bar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #606f7b;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #505f6b;
+}
+
+@media (max-width: 640px) {
+  .setting-responsive{
+    background-color: red;
+    flex-direction: column; 
+  }
+}
+
+
+/* Tampilan Tablet (lebar layar lebih dari 640px) */
+@media (min-width: 640px) and (max-width: 994px) {
+  .metrik {
+    display: grid;
+    grid-template-columns: repeat(2, 2fr); 
+    grid-gap: 1rem; 
+  }
+}
+
+
+
+.hoverable:hover {
+  background-color: #E3F5FF;
+}
+
+
+/* Tambahkan animasi loading bar ke file CSS Anda */
+@keyframes animate-loading-bar {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+.card-container {
+  flex: 1; /* Membagi ruang dengan rasio yang sama */
+  min-width: 100px; /* Menentukan lebar minimum */
+  max-width: 700px; /* Menentukan lebar maksimum */
+}
+.font{
+  font-family: 'Poppins', sans-serif;
+}
+
+.loader {
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px; /* Adjust the size as needed */
+  height: 40px; /* Adjust the size as needed */
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.icon-container {
+  position: absolute;
+  top: 50%;
+  left: -25px; /* Sesuaikan jarak dari sisi kiri */
+  transform: translateY(-50%);
+}
+
+.arrow-icon {
+  font-size: 24px; /* Sesuaikan ukuran ikon jika diperlukan */
+  color: #6b7280; /* Sesuaikan warna ikon jika diperlukan */
+  cursor: pointer;
+}
+
+
