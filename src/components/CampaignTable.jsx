@@ -732,7 +732,7 @@ function DataTable({ user }) {
             ...(canNextPage ? {} : disabledButtonStyle),
           }}
         >
-          <IoIosArrowForward />
+          {">>"}
         </button>{' '}
       </div>
       {/* End Pagination */}

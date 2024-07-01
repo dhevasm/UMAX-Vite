@@ -75,7 +75,7 @@ const Sidebar = ({ updateSelectedName, setMetricId, isOpen, handleBackButtonClic
 
         if (response.ok) {
           const responseData = await response.json();
-          console.log("data SideBar", responseData);
+          // console.log("data SideBar", responseData);
           setData(responseData.Data);
         } else {
           console.error("Gagal mengambil data");

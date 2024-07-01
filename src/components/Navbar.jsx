@@ -242,7 +242,7 @@ const Navbar = ({ toggleSidebar }) => {
         });
 
         setTenantData(response.data.Data);
-        console.log('Response Tenant:', response.data);
+        // console.log('Response Tenant:', response.data);
       } catch (error) {
         console.error('Error saat mengambil data:', error.message);
       }
@@ -278,12 +278,12 @@ const Navbar = ({ toggleSidebar }) => {
 
         localStorage.setItem('tenant_id', response.data.Data[0].tenant_id)
 
-        console.log('API Response:', response);
+        // console.log('API Response:', response);
 
         const selectedProfile = response.data.Data[0];
 
-        console.log('Image URL:', selectedProfile.image);
-        console.log('respon role:', selectedProfile.roles);
+        // console.log('Image URL:', selectedProfile.image);
+        // console.log('respon role:', selectedProfile.roles);
 
         const base64Image = selectedProfile.image;
         setProfileData({

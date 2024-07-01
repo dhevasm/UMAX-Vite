@@ -72,7 +72,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchSuggestions = async () => {
       const id = campaign_id;
-      console.log("ID CAMPAIGN", id);
+      // console.log("ID CAMPAIGN", id);
       try {
         const token = localStorage.getItem("jwtToken");
         const response = await axios.get(
@@ -103,7 +103,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchColorCard = async () => {
       const id = campaign_id;
-      console.log("ID CAMPAIGN", id);
+      // console.log("ID CAMPAIGN", id);
       try {
         const token = localStorage.getItem("jwtToken");
         const response = await axios.get(
@@ -118,7 +118,7 @@ const Dashboard = () => {
         );
         if (response.status === 200) {
           const data = response.data.Data;
-          console.log("data Color SideBar", data)
+          // console.log("data Color SideBar", data)
           setColorCard(data);
         } else {
           console.error("Failed to fetch side card data from API");
@@ -140,7 +140,7 @@ const Dashboard = () => {
         // Ganti ini sesuai kebutuhan
         const newUrl = `${baseUrl}${timeframe}?campaign_id=${campaign_id}`;
         setChartUrl(newUrl);
-        console.log(`New URL: ${newUrl}`);
+        // console.log(`New URL: ${newUrl}`);
       }
     },
     [setChartUrl, selectedName, campaign_id]
@@ -184,7 +184,7 @@ const Dashboard = () => {
         });
         if (response.status === 200) {
           const data = response.data.Data;
-          console.log("data AmountSpent", data)
+          // console.log("data AmountSpent", data)
           setAmountData(data);
         } else {
           console.error("Failed to fetch data from API");
@@ -207,7 +207,7 @@ const Dashboard = () => {
   };
   const updateSelectedName = (item) => {
     setSelectedName(item);
-    console.log("Selected Name:", item);
+    // console.log("Selected Name:", item);
   };
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -232,7 +232,7 @@ const Dashboard = () => {
         if (response.ok) {
           const barr = await response.json();
           setBarr(barr.Data);
-          console.log("Data barr", barr);
+          // console.log("Data barr", barr);
           // Ambil campaign_id dari data (misalnya, dari item pertama).
           const metricIdFromData =
             barr.Data.length > 0 ? barr.Data[0].campaign_id : "";
@@ -1211,7 +1211,7 @@ const Dashboard = () => {
         );
         if (response.status === 200) {
           const data = response.data;
-          console.log("response data", data);
+          // console.log("response data", data);
           if (data.Data && data.Data.length > 0) {
             const campaignId = data.Data[0].campaign_id;
             setCampaignIdFromResponse(campaignId);
@@ -1226,7 +1226,7 @@ const Dashboard = () => {
             );
             if (nextResponse.status === 200) {
               const nextData = nextResponse.data.Data;
-              console.log("next data metric", nextData);
+              // console.log("next data metric", nextData);
               setMetricsData(nextData);
             } else {
               console.error("Failed to fetch data from API");
