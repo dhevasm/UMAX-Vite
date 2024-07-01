@@ -3,6 +3,7 @@ const withMT = require("@material-tailwind/react/utils/withMT");
 
 module.exports = {
   content: [
+    "./index.html",
     "./src/**/*.{js,jsx,ts,tsx}",
     "./node_modules/react-tailwindcss-select/dist/index.esm.js"
   ],

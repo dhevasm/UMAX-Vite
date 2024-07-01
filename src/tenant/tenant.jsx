@@ -4,7 +4,7 @@ import { FaCheck } from "react-icons/fa";
 import { AiOutlineDownload } from "react-icons/ai";
 import { MdOutlineCancel } from "react-icons/md";
 import { GoQuestion } from "react-icons/go";
-import { useNavigate, navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import us from "../assets/us.png"
 import indonesia from "../assets/indonesia.png"
 import japan from "../assets/japan.jpg"

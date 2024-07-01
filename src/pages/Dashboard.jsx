@@ -16,7 +16,7 @@ import { FaChartLine, FaChartSimple } from "react-icons/fa6";
 import { AiOutlineWarning } from "react-icons/ai";
 import { NotFound, google, meta, tiktok } from "../assets";
 import "../styles.css";
-import { setActiveItem, updateSelectedName } from "../components/Sidebar";
+// import { setActiveItem, updateSelectedName } from "../components/Sidebar";
 import { useLanguage } from "../LanguageContext"; // Import the useLanguage hook
 import Translation from "../translation/Translation.json";
 import axios from "axios";
@@ -1286,7 +1286,7 @@ const Dashboard = () => {
               </h1>
             </div>
             <div className="flex items-center text-center justify-center font-semibold">
-              <ul className="grid -mb-1 max-sm:grid-cols-2 cursor-pointer grid-cols-4">
+              <ul className="flex w-full -mb-1 max-sm:flex-wrap md:flex-nowrap cursor-pointer"> 
                 <li
                   className={`p-3 px-4 ${activeTab === "performance"
                     ? "atas text-sky-500 cursor-pointer font-semibold border-b-4 border-sky-500 transition-colors"
