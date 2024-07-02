@@ -10,6 +10,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
+        // add backgorund
         'bg-login': "url('./assets/bg-default.svg')",
       },
     },

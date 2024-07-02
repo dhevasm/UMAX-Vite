@@ -736,7 +736,6 @@ function DataTable({ user }) {
       </div>
       {/* End Pagination */}
     </div>
-
   );
 }
 
