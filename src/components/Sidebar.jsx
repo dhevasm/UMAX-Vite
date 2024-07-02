@@ -188,6 +188,16 @@ const Sidebar = ({ updateSelectedName, setMetricId, isOpen, handleBackButtonClic
     );
   };
 
+  const checkDeviceWidth = () => {
+    const width = window.innerWidth;
+    if (width <= 768) {
+      toggle()
+    } else {
+      return false;
+    }
+  };
+  
+
 
   const nonActiveHoverClass = "hoverable";
 
@@ -313,7 +323,7 @@ const Sidebar = ({ updateSelectedName, setMetricId, isOpen, handleBackButtonClic
           }}
         > */}
         <div
-          className={`relative max-sm:absolute max-sm:bottom-0 bayangan max-w-70 w-80 min-h-full max-h-full max-sm:h-full max-sm:overflow-scroll bg-white max-sm:rounded-xl rounded-s-xl  text-slate-500 p-4 transform ${state.toggleNavbar ? "block" : "hidden"
+          className={`relative max-sm:absolute max-sm:bottom-0 bayangan max-w-70 w-80 min-h-full max-h-full max-sm:h-full bg-white max-sm:rounded-xl rounded-s-xl  text-slate-500 p-4 transform ${state.toggleNavbar ? "block" : "hidden"
             } transition-transform duration-300 ease-in-out`}
         >
 
@@ -364,8 +374,8 @@ const Sidebar = ({ updateSelectedName, setMetricId, isOpen, handleBackButtonClic
           </div>
 
 
-          <div className="relative lebar-list -left-4 border-slate-500 pt-2 overflow-y-scroll h-full max-sm:max-h-[30rem]">
-            <ul className="cursor-pointer mt-2 ">
+          <div className="relative -left-4 border-slate-500 pt-2 h-full max-sm:max-h-[30rem]">
+            <ul className="cursor-pointer mt-2 ms-1" onClick={checkDeviceWidth}>
               {renderItems(filteredCampaigns)}
             </ul>
           </div>
@@ -377,10 +387,10 @@ const Sidebar = ({ updateSelectedName, setMetricId, isOpen, handleBackButtonClic
           {/* </div> */}
         </div>
       </div>
-      <div className="absolute top-[7rem] flex justify-center items-center -left-5 w-10 h-10 bg-sky-300 rounded-full cursor-pointer"
+      <div className="absolute top-[7rem] flex justify-center items-center -left-5 w-10 h-10 bg-sky-300 rounded-full cursor-pointer z-50"
         onClick={toggle}
       >
-        <BiChevronRight className= "rotate-180 text-3xl transition-all duration-300" />
+        <BiChevronRight className= "rotate-180 text-7xl transition-all duration-300" />
       </div>
     </>
 

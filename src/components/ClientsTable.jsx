@@ -124,7 +124,7 @@ function ClientsTable() {
     fetchData();
   }, []);
   // END GET DATA
-
+  
 
 
   // PAGINATION
