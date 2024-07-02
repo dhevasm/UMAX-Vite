@@ -248,7 +248,7 @@ const SignUp = () => {
           SIGN UP
         </button>
         <Link
-          to="/login"
+          to="/"
           className="block text-[#5473E3] mt-3 text-center hover:text-[#2347C5] hover:underline"
         >
           Already have an account? Sign in

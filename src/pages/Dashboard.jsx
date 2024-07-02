@@ -73,29 +73,34 @@ const Dashboard = () => {
     const fetchSuggestions = async () => {
       const id = campaign_id;
       // console.log("ID CAMPAIGN", id);
-      try {
-        const token = localStorage.getItem("jwtToken");
-        const response = await axios.get(
-          `https://umaxxnew-1-d6861606.deta.app/suggestions?campaign_id=${id}`,
-          {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
+
+      if(id === "") {
+        return false
+      }else{
+        try {
+          const token = localStorage.getItem("jwtToken");
+          const response = await axios.get(
+            `https://umaxxnew-1-d6861606.deta.app/suggestions?campaign_id=${id}`,
+            {
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (response.status === 200) {
+            const data = response.data.Data;
+            setSuggestionData(data);
+          } else {
+            console.error("Failed to fetch suggestion data from API");
           }
-        );
-        if (response.status === 200) {
-          const data = response.data.Data;
-          setSuggestionData(data);
-        } else {
-          console.error("Failed to fetch suggestion data from API");
+        } catch (error) {
+          console.error(
+            "An error occurred while fetching suggestion data",
+            error
+          );
         }
-      } catch (error) {
-        console.error(
-          "An error occurred while fetching suggestion data",
-          error
-        );
       }
     };
     fetchSuggestions();
@@ -104,30 +109,35 @@ const Dashboard = () => {
     const fetchColorCard = async () => {
       const id = campaign_id;
       // console.log("ID CAMPAIGN", id);
-      try {
-        const token = localStorage.getItem("jwtToken");
-        const response = await axios.get(
-          `https://umaxxnew-1-d6861606.deta.app/side-cart?campaign_id=${id}`,
-          {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
+
+      if(id === "") {
+        return false
+      }else{
+        try {
+          const token = localStorage.getItem("jwtToken");
+          const response = await axios.get(
+            `https://umaxxnew-1-d6861606.deta.app/side-cart?campaign_id=${id}`,
+            {
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (response.status === 200) {
+            const data = response.data.Data;
+            // console.log("data Color SideBar", data)
+            setColorCard(data);
+          } else {
+            console.error("Failed to fetch side card data from API");
           }
-        );
-        if (response.status === 200) {
-          const data = response.data.Data;
-          // console.log("data Color SideBar", data)
-          setColorCard(data);
-        } else {
-          console.error("Failed to fetch side card data from API");
+        } catch (error) {
+          console.error(
+            "An error occurred while fetching side card data",
+            error
+          );
         }
-      } catch (error) {
-        console.error(
-          "An error occurred while fetching side card data",
-          error
-        );
       }
     };
     fetchColorCard();
@@ -216,32 +226,38 @@ const Dashboard = () => {
   useEffect(() => {
     const metricsChart = async () => {
       try {
-        setLoading(true);
         const id = campaign_id;
         const token = localStorage.getItem("jwtToken");
         // pakai value dari selectedTimeFrame agar lebih dinamis
         // default value dari selectedTimeFrame: last-week
         const apiUrl = `https://umaxxnew-1-d6861606.deta.app/metrics-7?campaign_id=${id}`;
-        const response = await fetch(apiUrl, {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (response.ok) {
-          const barr = await response.json();
-          setBarr(barr.Data);
-          // console.log("Data barr", barr);
-          // Ambil campaign_id dari data (misalnya, dari item pertama).
-          const metricIdFromData =
-            barr.Data.length > 0 ? barr.Data[0].campaign_id : "";
-          // Set campaign_id ke dalam state.
-          setMetricId(metricIdFromData);
-        } else {
-          console.error("Gagal mengambil metrics");
+       
+        if(id == ""){
+          return false;
+        }else{
+          setLoading(true);
+          const response = await fetch(apiUrl, {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          if (response.ok) {
+            const barr = await response.json();
+            setBarr(barr.Data);
+            // console.log("Data barr", barr);
+            // Ambil campaign_id dari data (misalnya, dari item pertama).
+            const metricIdFromData =
+              barr.Data.length > 0 ? barr.Data[0].campaign_id : "";
+            // Set campaign_id ke dalam state.
+            setMetricId(metricIdFromData);
+          } else {
+            console.error("Gagal mengambil metrics");
+          }
+          setLoading(false);
         }
-        setLoading(false);
+
       } catch (error) {
         console.error("Terjadi kesalahan:", error);
         setLoading(false);
@@ -558,7 +574,7 @@ const Dashboard = () => {
                   Feb 4, 20:12
                 </div>
                 <select
-                  defaultValue="last-week"
+                  defaultValue="last-week"  
                   name=""
                   id=""
                   className="focus:outline-none p-2 px-5 border border-gray-300 text-gray-500 rounded-md"
@@ -760,7 +776,7 @@ const Dashboard = () => {
                                     <p className="leading-5 ">{suggestion.rar.msg}</p>
                                     <hr className="border border-gray-500/30 w-full mt-3 " />
 
-                                    <div className="flex gap-10 mt-3">
+                                    <div className="flex md:gap-10 mt-3 flex-col md:flex-row">
                                       <span className="flex gap-2">
                                         <h1 className="font-medium font-sans  "> Nilai:</h1>
                                         <p className="font-sans text-red-600 ">{suggestion.rar.value}</p>
@@ -771,7 +787,7 @@ const Dashboard = () => {
                                       </span>
                                     </div>
 
-                                    <span className="flex relative top-3 gap-3">
+                                    <span className="flex relative md:top-3 gap-3">
                                       <h1 className="font-medium font-sans ">Pesan:</h1>
                                       <p className="">{suggestion.rar.massage}</p>
                                     </span>
@@ -782,11 +798,11 @@ const Dashboard = () => {
                               href="https://chat.openai.com/share/3bb35f6a-4b3b-4182-b6f9-c880722b3c72"
                               target="_blank"
                             >
-                              <div className="mt-flex justify-end items-end mt-3">
-                                <p className=" text-end hover:underline text-sm">
-                                  {translations["Learn More"]}
-                                </p>
-                              </div>
+                              <div className="mt-5 md:mt-0">
+                                  <p className=" text-end hover:underline text-sm mx-auto">
+                                    {translations["Learn More"]}
+                                  </p>
+                                </div>
                             </a>
                           </div>
                         </Card>
@@ -812,7 +828,7 @@ const Dashboard = () => {
                                       <h2 className="font-medium text-gray-900 ">{suggestion.oclp.title}</h2>
                                       <p className="leading-5 ">{suggestion.oclp.msg}</p>
                                       <hr className="border border-gray-500/30 w-full mt-3 " />
-                                      <div className="flex gap-10 mt-3">
+                                      <div className="flex md:gap-10 mt-3 flex-col md:flex-row">
                                         <span className="flex gap-2">
                                           <h1 className="font-medium font-sans  "> Nilai:</h1>
                                           <p className="font-sans text-red-600 ">{suggestion.oclp.value}</p>
@@ -822,7 +838,7 @@ const Dashboard = () => {
                                           <p className="font-sans text-green-600 ">{suggestion.oclp.target}</p>
                                         </span>
                                       </div>
-                                      <span className="flex relative top-3 gap-3">
+                                      <span className="flex relative md:top-3 gap-3">
                                         <h1 className="font-medium font-sans ">Pesan:</h1>
                                         <p className="">{suggestion.oclp.massage}</p>
                                       </span>
@@ -833,8 +849,8 @@ const Dashboard = () => {
                                 href="https://chat.openai.com/share/3bb35f6a-4b3b-4182-b6f9-c880722b3c72"
                                 target="_blank"
                               >
-                                <div className="flex justify-end items-end mt-3">
-                                  <p className=" text-end hover:underline text-sm">
+                                <div className="mt-5 md:mt-0">
+                                  <p className=" text-end hover:underline text-sm mx-auto">
                                     {translations["Learn More"]}
                                   </p>
                                 </div>
@@ -861,7 +877,7 @@ const Dashboard = () => {
                                       <h2 className="font-medium text-gray-900 ">{suggestion.cpc.title}</h2>
                                       <p className="leading-5 ">{suggestion.cpc.msg}</p>
                                       <hr className="border border-gray-500/30 w-full mt-3 " />
-                                      <div className="flex gap-10 mt-3">
+                                      <div className="flex md:gap-10 mt-3 flex-col md:flex-row">
                                         <span className="flex gap-2">
                                           <h1 className="font-medium font-sans  "> Nilai:</h1>
                                           <p className="font-sans text-red-600 ">{suggestion.cpc.value}</p>
@@ -871,7 +887,7 @@ const Dashboard = () => {
                                           <p className="font-sans text-green-600 ">{suggestion.cpc.target}</p>
                                         </span>
                                       </div>
-                                      <span className="flex relative top-3 gap-3">
+                                      <span className="flex relative md:top-3 gap-3">
                                         <h1 className="font-medium font-sans ">Pesan:</h1>
                                         <p className="">{suggestion.cpc.message}</p>
                                       </span>
@@ -883,8 +899,8 @@ const Dashboard = () => {
                                 href="https://chat.openai.com/share/3bb35f6a-4b3b-4182-b6f9-c880722b3c72"
                                 target="_blank"
                               >
-                                <div className="mt-0">
-                                  <p className=" text-end hover:underline text-sm">
+                                <div className="mt-5 md:mt-0">
+                                  <p className=" text-end hover:underline text-sm mx-auto">
                                     {translations["Learn More"]}
                                   </p>
                                 </div>
@@ -911,7 +927,7 @@ const Dashboard = () => {
                                       <h2 className="font-medium text-gray-900 ">{suggestion.ctr.title}</h2>
                                       <p className="leading-5 ">{suggestion.ctr.msg}</p>
                                       <hr className="border border-gray-500/30 w-full mt-3 " />
-                                      <div className="flex gap-10 mt-3">
+                                      <div className="flex md:gap-10 mt-3 flex-col md:flex-row">
                                         <span className="flex gap-2">
                                           <h1 className="font-medium font-sans  "> Nilai:</h1>
                                           <p className="font-sans text-red-600 ">{suggestion.ctr.value}</p>
@@ -921,7 +937,7 @@ const Dashboard = () => {
                                           <p className="font-sans text-green-600 ">{suggestion.ctr.target}</p>
                                         </span>
                                       </div>
-                                      <span className="flex relative top-3 gap-3">
+                                      <span className="flex relative md:top-3 gap-3">
                                         <h1 className="font-medium font-sans ">Pesan:</h1>
                                         <p className="">{suggestion.ctr.message}</p>
                                       </span>
@@ -932,8 +948,8 @@ const Dashboard = () => {
                                 href="https://chat.openai.com/share/3bb35f6a-4b3b-4182-b6f9-c880722b3c72"
                                 target="_blank"
                               >
-                                <div className="mt-0">
-                                  <p className=" text-end hover:underline text-sm">
+                                <div className="mt-5 md:mt-0">
+                                  <p className=" text-end hover:underline text-sm mx-auto">
                                     {translations["Learn More"]}
                                   </p>
                                 </div>
@@ -960,7 +976,7 @@ const Dashboard = () => {
                                       <h2 className="font-medium text-gray-900 ">{suggestion.roas.title}</h2>
                                       <p className="leading-5 ">{suggestion.roas.msg}</p>
                                       <hr className="border border-gray-500/30 w-full mt-3 " />
-                                      <div className="flex gap-10 mt-3">
+                                      <div className="flex md:gap-10 mt-3 flex-col md:flex-row">
                                         <span className="flex gap-2">
                                           <h1 className="font-medium font-sans  "> Nilai:</h1>
                                           <p className="font-sans text-red-600 ">{suggestion.roas.value}</p>
@@ -970,7 +986,7 @@ const Dashboard = () => {
                                           <p className="font-sans text-green-600 ">{suggestion.roas.target}</p>
                                         </span>
                                       </div>
-                                      <span className="flex relative top-3 gap-3">
+                                      <span className="flex relative md:top-3 gap-3">
                                         <h1 className="font-medium font-sans ">Pesan:</h1>
                                         <p className="">{suggestion.roas.message}</p>
                                       </span>
@@ -981,8 +997,8 @@ const Dashboard = () => {
                                 href="https://chat.openai.com/share/3bb35f6a-4b3b-4182-b6f9-c880722b3c72"
                                 target="_blank"
                               >
-                                <div className="mt-0">
-                                  <p className=" text-end hover:underline text-sm">
+                                <div className="mt-5 md:mt-0">
+                                  <p className=" text-end hover:underline text-sm mx-auto">
                                     {translations["Learn More"]}
                                   </p>
                                 </div>
@@ -1008,8 +1024,8 @@ const Dashboard = () => {
                                     <div key={index}>
                                       <h2 className="font-medium text-gray-900 ">{suggestion.cpr.title}</h2>
                                       <p className="leading-5 ">{suggestion.cpr.msg}</p>
-                                      <hr className="border border-gray-500/30 w-full mt-3 " />
-                                      <div className="flex gap-10 mt-3">
+                                      <hr className="border border-gray-500/30 w-full mt-3" />
+                                      <div className="flex md:gap-10 mt-3 flex-col md:flex-row">
                                         <span className="flex gap-2">
                                           <h1 className="font-medium font-sans  "> Nilai:</h1>
                                           <p className="font-sans text-red-600 ">{suggestion.cpr.value}</p>
@@ -1019,7 +1035,7 @@ const Dashboard = () => {
                                           <p className="font-sans text-green-600 ">{suggestion.cpr.target}</p>
                                         </span>
                                       </div>
-                                      <span className="flex relative top-3 gap-3">
+                                      <span className="flex relative md:top-3 gap-3">
                                         <h1 className="font-medium font-sans ">Pesan:</h1>
                                         <p className="">{suggestion.cpr.message}</p>
                                       </span>
@@ -1030,8 +1046,8 @@ const Dashboard = () => {
                                 href="https://chat.openai.com/share/3bb35f6a-4b3b-4182-b6f9-c880722b3c72"
                                 target="_blank"
                               >
-                                <div className="mt-0">
-                                  <p className=" text-end hover:underline text-sm">
+                                <div className="mt-5 md:mt-0">
+                                  <p className=" text-end hover:underline text-sm mx-auto">
                                     {translations["Learn More"]}
                                   </p>
                                 </div>
@@ -1200,42 +1216,47 @@ const Dashboard = () => {
       try {
         const id = campaign_id;
         const token = localStorage.getItem("jwtToken");
-        const response = await axios.get(
-          `https://umaxxnewproject-1-a0312961.deta.app/metrics-7?campaign_id=${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              Accept: "application/json",
-            },
-          }
-        );
-        if (response.status === 200) {
-          const data = response.data;
-          // console.log("response data", data);
-          if (data.Data && data.Data.length > 0) {
-            const campaignId = data.Data[0].campaign_id;
-            setCampaignIdFromResponse(campaignId);
-            const nextResponse = await axios.get(
-              `https://umaxxnewproject-1-a0312961.deta.app/metrics-7?campaign_id=${campaignId}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                  Accept: "application/json",
-                },
+
+        if(id == ""){
+          return false;
+        }else{
+          const response = await axios.get(
+            `https://umaxxnewproject-1-a0312961.deta.app/metrics-7?campaign_id=${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: "application/json",
+              },
+            }
+          );
+          if (response.status === 200) {
+            const data = response.data;
+            // console.log("response data", data);
+            if (data.Data && data.Data.length > 0) {
+              const campaignId = data.Data[0].campaign_id;
+              setCampaignIdFromResponse(campaignId);
+              const nextResponse = await axios.get(
+                `https://umaxxnewproject-1-a0312961.deta.app/metrics-7?campaign_id=${campaignId}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json",
+                  },
+                }
+              );
+              if (nextResponse.status === 200) {
+                const nextData = nextResponse.data.Data;
+                // console.log("next data metric", nextData);
+                setMetricsData(nextData);
+              } else {
+                console.error("Failed to fetch data from API");
               }
-            );
-            if (nextResponse.status === 200) {
-              const nextData = nextResponse.data.Data;
-              // console.log("next data metric", nextData);
-              setMetricsData(nextData);
             } else {
-              console.error("Failed to fetch data from API");
+              console.error("No campaign data found in the response");
             }
           } else {
-            console.error("No campaign data found in the response");
+            console.error("Failed to fetch data from API");
           }
-        } else {
-          console.error("Failed to fetch data from API");
         }
       } catch (error) {
         console.error("An error occurred", error);
@@ -1286,7 +1307,8 @@ const Dashboard = () => {
               </h1>
             </div>
             <div className="flex items-center text-center justify-center font-semibold">
-              <ul className="flex w-full -mb-1 max-sm:flex-wrap md:flex-nowrap cursor-pointer"> 
+              {/* desktop performance nav */}
+              <ul className="hidden w-full -mb-1 md:flex justify-center max-sm:flex-wrap md:flex-nowrap cursor-pointer"> 
                 <li
                   className={`p-3 px-4 ${activeTab === "performance"
                     ? "atas text-sky-500 cursor-pointer font-semibold border-b-4 border-sky-500 transition-colors"
@@ -1325,6 +1347,15 @@ const Dashboard = () => {
                   {translations["Setting"]}
                 </li>
               </ul>
+
+              {/* Mobile performance nav */}
+              <select name="" id="" className="block w-full px-3 py-2 leading-tight bg-white border border-gray-300 rounded shadow appearance-none focus:outline-none focus:shadow-outline md:hidden m-5" 
+              onChange={(e) => handleTabClick(e.target.value)}>
+                    <option value="performance">Performance</option>
+                    <option value="metrics">Metrics</option>
+                    <option value="history">History</option>
+                    <option value="setting">Setting</option>
+              </select>
             </div>
           </div>
           {/* Body */}
