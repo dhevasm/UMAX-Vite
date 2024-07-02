@@ -69,15 +69,14 @@ const ResetPassword = () => {
         },
     });
     return (
-        <div className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
-            <img src={bgLogin} alt="background" className="absolute -z-10" />
+        <div className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center bg-bg-login">
             <div>
                 <img src={logo} alt="logo" className="mx-auto pb-2 w-20" />
             </div>
             <div className="flex flex-col items-center justify-center mt-5 sm:mt-0">
                 <form
                     onSubmit={formik.handleSubmit}
-                    className="w-full  p-6 bg-white rounded-lg shadow-lg border-2"
+                    className="w-10/12 md:w-full  p-6 bg-white rounded-lg shadow-lg border-2"
                 >
                     <input
                         type="token"
@@ -150,6 +149,7 @@ const ResetPassword = () => {
             </div>
         </div>
     );
+    
 }
 
 export default ResetPassword

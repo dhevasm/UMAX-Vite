@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import logo from '../assets/logo.png';
 import bgLogin from '../assets/bg-default.svg';
@@ -64,9 +65,8 @@ const ForgotPassword = () => {
 
     });
     return (
-        <div className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
-            <img src={bgLogin} alt="background" className="absolute -z-10" />
-            <div className="w-full max-w-md mx-auto">
+        <div className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center bg-bg-login">
+            <div className="w-10/12 md:w-full max-w-md mx-auto">
                 <img src={logo} alt="logo" className="mx-auto pb-2 w-20" />
                 <div className="flex flex-col items-center justify-center mt-5 sm:mt-0">
                     <form
@@ -100,6 +100,7 @@ const ForgotPassword = () => {
             </div>
         </div>
     );
+    
 }
 
 export default ForgotPassword

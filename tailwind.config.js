@@ -8,9 +8,13 @@ module.exports = {
     "./node_modules/react-tailwindcss-select/dist/index.esm.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        // add backgorund
+        'bg-login': "url('./assets/bg-default.svg')",
+      },
+    },
   },
   plugins: [],
   
 }
-
