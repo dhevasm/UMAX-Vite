@@ -416,16 +416,15 @@ function DataTable({ user }) {
                 onClick={() => handleDelete(row.original._id)}
                 className="bg-red-500 hover:bg-red-500 text-white py-1 px-1 rounded"
               >
-                <BsTrash3 />
+                <BsTrash3 size={15}/>
               </button>
             {/* )} */}
 
             <Link to={`/updatecampaigns/${row.original._id}`}>
               <button
-
                 className="bg-sky-500 hover:bg-blue-500 text-white py-1 px-1 rounded"
               >
-                <AiOutlineEdit />
+                <AiOutlineEdit size={15} />
               </button>
             </Link>
           </div>
@@ -687,7 +686,7 @@ function DataTable({ user }) {
         </div>
       </div>
       {/* Pagination */}
-      <div style={paginationStyle}>
+      <div className="mb-3" style={paginationStyle}>
         <button
           onClick={() => gotoPage(0)}
           disabled={!canPreviousPage}
@@ -732,7 +731,7 @@ function DataTable({ user }) {
             ...(canNextPage ? {} : disabledButtonStyle),
           }}
         >
-          <IoIosArrowForward />
+          {'>>'}
         </button>{' '}
       </div>
       {/* End Pagination */}

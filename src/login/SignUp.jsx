@@ -1,28 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import { useFormik } from 'formik';
 import bgLogin from '../assets/bg-default.svg';
-import { toast, ToastContainer } from 'react-toastify';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import Swal from 'sweetalert2';
 
-
 const SignUp = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
-  const registrationSuccessful = useState();
-  const [errors, setErrors] = useState({});
-
-  const toggleKonfirmasiPasswordVisibility = () => {
-    setShowKonfirmasiPassword(!showKonfirmasiPassword);
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showKonfirmasiPassword, setShowKonfirmasiPassword] = useState(false);
   const navigate = useNavigate();
-  // url base
   const umaxUrl = 'https://umaxxnew-1-d6861606.deta.app';
 
   const formik = useFormik({
@@ -54,8 +42,14 @@ const SignUp = () => {
       }
       return errors;
     },
+    
     onSubmit: (values, { setSubmitting }) => {
-      // Proceed with form submission
+      const errors = formik.validate(values);
+      if (Object.keys(errors).length > 0) {
+        setSubmitting(false);
+        return;
+      }
+
       const token = localStorage.getItem('jwtToken');
       fetch(`${umaxUrl}/register`, {
         method: 'POST',
@@ -70,38 +64,40 @@ const SignUp = () => {
         .then((data) => {
           console.log(data);
           if (data.message === 'Registration successful') {
-            // Redirect based on user role
-            if (values.role === 'admin') {
-              navigate('/admin-dashboard');
-            } else if (values.role === 'staff') {
-              navigate('/staff-dashboard');
-            } else if (values.role === 'client') {
-              navigate('/client-dashboard');
-            } else {
-              navigate('/users-table'); // Default for regular users
-            }
+            Swal.fire({
+              title: 'Registration Successful!',
+              text: 'Your data has been successfully registered.',
+              icon: 'success',
+              confirmButtonText: 'OK',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                navigate('/UsersTable');
+              }
+            });
           }
         })
         .catch((error) => {
           console.error(error);
+          Swal.fire({
+            title: 'Registration Failed!',
+            text: 'There was an error during registration. Please try again.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+          });
         })
         .finally(() => {
           setSubmitting(false);
         });
     },
+    validateOnChange: false,
   });
-
-
-
-  const [showPassword, setShowPassword] = useState(false);
-  const [showKonfirmasiPassword, setShowKonfirmasiPassword] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
         console.log("Esc key pressed");
         navigate(-1);
-      };
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -111,36 +107,22 @@ const SignUp = () => {
     };
   }, [navigate]);
 
-  
-  const handleSignUpClick = () => {
-    // Navigasi ke halaman UsersTable
-    
-
-    formik.handleSubmit();
-    if (registrationSuccessful) {
-      Swal.fire({
-        title: 'Registration Successful!',
-        text: 'Your data has been successfully registered.',
-        icon: 'success',
-        confirmButtonText: 'OK',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate('/UsersTable');
-        }
-      });
-    }
+  const toggleKonfirmasiPasswordVisibility = () => {
+    setShowKonfirmasiPassword(!showKonfirmasiPassword);
   };
-  
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
-    <div className="relative overflow-hidden min-h-screen flex flex-col items-center justify-center">
-      <img src={bgLogin} className='absolute -z-10' />
+    <div className="relative overflow-hidden min-h-screen flex flex-col items-center justify-center bg-bg-login">
       <div>
         <img src={logo} alt="logo" className="mx-auto pb-2 w-20" />
       </div>
       <form
         onSubmit={formik.handleSubmit}
-        className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 border-2"
+        className="w-10/12 md:w-full max-w-md bg-white rounded-lg shadow-lg p-6 border-2"
       >
         <p className="font-semibold text-base text-[#5473E3] mb-5">Register</p>
         <input
@@ -148,7 +130,7 @@ const SignUp = () => {
           id="name"
           name="name"
           onChange={formik.handleChange}
-          value={formik.values.nama}
+          value={formik.values.name}
           placeholder="Nama"
           className="w-full h-9 rounded-md border pl-5 border-blue mt-2 focus:outline-none focus:ring-1 text-slate-500"
         />
@@ -162,7 +144,7 @@ const SignUp = () => {
           onChange={formik.handleChange}
           value={formik.values.email}
           placeholder="Email"
-          className="w-full h-9 rounded-md border pl-5 border-blue mt-2 focus:outline-none focus:ring-1 text-slate-500"
+          className="w-full h-9 rounded-md border pl-5 border-blue mt-3 focus:outline-none focus:ring-1 text-slate-500"
         />
         {formik.errors.email && (
           <span className="text-red-500 text-sm">{formik.errors.email}</span>
@@ -175,19 +157,18 @@ const SignUp = () => {
             onChange={formik.handleChange}
             value={formik.values.password}
             placeholder="Password"
-            className="w-full h-9 rounded-md border pl-5 border-blue mt-2 focus:outline-none focus:ring-1 text-slate-500"
+            className="w-full h-9 rounded-md border pl-5 border-blue mt-3 focus:outline-none focus:ring-1 text-slate-500"
           />
 
           <div
             className="absolute top-3 right-2  cursor-pointer"
-            onClick={togglePasswordVisibility} irm
+            onClick={togglePasswordVisibility}
           >
             {showPassword ? (
               <AiOutlineEye size={15} />
             ) : (
               <AiOutlineEyeInvisible size={15} />
             )}
-
           </div>
         </div>
         {formik.errors.password && (
@@ -201,18 +182,17 @@ const SignUp = () => {
             onChange={formik.handleChange}
             value={formik.values.confirm_password}
             placeholder="Konfirmasi Password"
-            className="w-full h-9 rounded-md border pl-5 border-blue mt-2 focus:outline-none focus:ring-1 text-slate-500"
+            className="w-full h-9 rounded-md border pl-5 border-blue mt-3 focus:outline-none focus:ring-1 text-slate-500"
           />
           <div
             className="absolute top-3 right-2  cursor-pointer flex items-center"
-            onClick={toggleKonfirmasiPasswordVisibility} irm
+            onClick={toggleKonfirmasiPasswordVisibility}
           >
             {showKonfirmasiPassword ? (
               <AiOutlineEye size={15} />
             ) : (
               <AiOutlineEyeInvisible size={15} />
             )}
-
           </div>
         </div>
         {formik.errors.confirm_password && (
@@ -228,13 +208,12 @@ const SignUp = () => {
           name="role"
           onChange={formik.handleChange}
           value={formik.values.role}
-          className="w-full h-9 rounded-md border pl-5 border-blue mt-2 focus:outline-none focus:ring-1 text-slate-500"
+          className="w-full h-9 rounded-md border pl-5 border-blue mt-3 focus:outline-none focus:ring-1 text-slate-500"
         >
           <option value="" hidden>Select Role</option>
           <option value="admin">Admin</option>
           <option value="staff">Staff</option>
           <option value="client">Client</option>
-          {/* Add more roles if needed */}
         </select>
         {formik.errors.role && (
           <span className="text-red-500 text-sm">{formik.errors.role}</span>
@@ -242,20 +221,19 @@ const SignUp = () => {
         <button
           type="submit"
           disabled={formik.isSubmitting}
-          onClick={handleSignUpClick}
           className="w-full h-10 rounded-full bg-[#3D5FD9] text-[#F5F7FF] hover:bg-[#2347C5] mt-5"
         >
           SIGN UP
         </button>
         <Link
-          to="/login"
+          to="/"
           className="block text-[#5473E3] mt-3 text-center hover:text-[#2347C5] hover:underline"
         >
           Already have an account? Sign in
         </Link>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;
